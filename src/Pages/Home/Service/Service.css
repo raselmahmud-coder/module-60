@@ -1,0 +1,9 @@
+.service-container{
+    padding-bottom: 10px;
+    text-align: center;
+    border: 1px solid lightgray;
+}
+.service-container img {
+  width: 100%;
+}
+
