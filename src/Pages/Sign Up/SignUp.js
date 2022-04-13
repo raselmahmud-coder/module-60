@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form, FormText } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../firebase-init";
 
@@ -13,29 +13,18 @@ const SignUp = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
+    console.log(email, password);
     createUserWithEmailAndPassword(email, password);
-
-    if (error) {
-      return (
-        <div>
-          <p>Error: {error.message}</p>
-        </div>
-      );
-    }
-    if (loading) {
-      return <p>Loading...</p>;
-    }
-    if (user) {
-      return (
-        <div>
-          <p>Registered User: {user.email}</p>
-        </div>
-      );
-    }
   };
+  const navigate = useNavigate();
+  if (user) {
+    navigate('/');
+  }
+
   return (
     <>
       <Form className="w-25 mx-auto" onSubmit={handleForm}>
+        <h1>Please Sign Up</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Name</Form.Label>
           <Form.Control name="name" type="text" placeholder="Enter name" />
@@ -68,14 +57,17 @@ const SignUp = () => {
               Login
             </Link>
           </FormText>
+          {error && <p>Error: {error.message}</p>}
+          {loading && <p>Loading...</p>}
+          {user && <p>Register User {user.user.email}</p>}
         </Form.Group>
         <Button variant="primary" type="submit">
           Sign Up
         </Button>
-      </Form>
       <Button className="ms-4" variant="primary" type="submit">
-        Login with Google
+        Sign Up with Google
       </Button>
+      </Form>
     </>
   );
 };

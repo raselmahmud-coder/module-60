@@ -1,14 +1,27 @@
 import React from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "./Header.css";
 import logo from "../../../images/logo.png";
 import { Link } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../../firebase-init";
+import { signOut } from "firebase/auth";
 const Header = () => {
+  const [user] = useAuthState(auth);
+  const handleSignOut = () => {
+    signOut(auth);
+  }
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" sticky="top">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        bg="primary"
+        variant="dark"
+        sticky="top"
+      >
         <Container>
-          <Navbar.Brand as = {Link} to="/">
+          <Navbar.Brand as={Link} to="/">
             <img src={logo} height={30} alt="" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -17,24 +30,34 @@ const Header = () => {
               <Nav.Link href="/#services">Services</Nav.Link>
               <Nav.Link href="/#experts">Experts</Nav.Link>
               <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                <NavDropdown.Item as = {Link} to="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item as = {Link} to="#action/3.2">
+                <NavDropdown.Item as={Link} to="#action/3.1">
+                  Action
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="#action/3.2">
                   Another action
                 </NavDropdown.Item>
-                <NavDropdown.Item as = {Link} to="#action/3.3">
+                <NavDropdown.Item as={Link} to="#action/3.3">
                   Something
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item as = {Link} to="#action/3.4">
+                <NavDropdown.Item as={Link} to="#action/3.4">
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Nav>
-              <Nav.Link as = {Link} to="/about">About</Nav.Link>
-              <Nav.Link as = {Link} to="login">
-                Log in
+              <Nav.Link as={Link} to="/about">
+                About
               </Nav.Link>
+              {user ? (
+                <Button onClick={handleSignOut}>
+                  Log Out
+                </Button>
+              ) : (
+                <Nav.Link as={Link} to="login">
+                  Log in
+                </Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
