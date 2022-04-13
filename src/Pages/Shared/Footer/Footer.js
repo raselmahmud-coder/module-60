@@ -1,9 +1,9 @@
 import React from "react";
-
+import './Footer.css';
 const Footer = () => {
   return (
-    <footer className="text-center mt-5">
-      <span>&copy;copyright 2019 - {new Date().getFullYear()}</span>
+    <footer className="text-center mt-5 footer-fixed">
+      <span>Rasel Mahmud &copy;Copy Right 2019 - {new Date().getFullYear()}</span>
     </footer>
   );
 };
