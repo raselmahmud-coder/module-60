@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Service.css";
 const Service = ({ service }) => {
-    const { id, name, description, price, img } = service;
-    const navigate = useNavigate();
+  const { id, name, description, price, img } = service;
+  const navigate = useNavigate();
   const handleNavigate = (id) => {
-      navigate(`/service/${id}`);
+    navigate(`/service/${id}`);
   };
   return (
     <div className="service-container">
