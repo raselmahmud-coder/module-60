@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
 import { Button, Form, FormText } from "react-bootstrap";
 import {
+  useAuthState,
   useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import auth from "../../firebase-init";
 import Loading from "../Shared/Loading/Loading";
 import PageTitle from "../Shared/PageTitle/PageTitle";
@@ -19,6 +21,7 @@ const Login = () => {
   const [sendPasswordResetEmail, PassSending, passResetError] =
     useSendPasswordResetEmail(auth);
   const navigate = useNavigate();
+  const [LoginUser] = useAuthState(auth);
   const from = location.state?.from?.pathname || "/";
   if (loading || PassSending) {
     return <Loading />;
@@ -29,7 +32,11 @@ const Login = () => {
     const password = passwordRef.current.value;
     signInWithEmailAndPassword(email, password);
   };
-  if (user) {
+  if (user || LoginUser) {
+    toast.success("Success Notification !", {
+      position: toast.POSITION.TOP_CENTER,
+      toastId:"user_success"
+    });
     navigate(from, { replace: true });
   }
   let errorElement;
@@ -45,7 +52,7 @@ const Login = () => {
   }
   return (
     <div className="d-flex flex-column align-items-center">
-      <PageTitle title="Log in"/>
+      <PageTitle title="Log in" />
       <Form className="w-25" onSubmit={handleForm}>
         <h1>Please Log In</h1>
         <p className="text-danger">{pathName()}</p>

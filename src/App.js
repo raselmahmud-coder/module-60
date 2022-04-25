@@ -10,20 +10,18 @@ import SignUp from "./Pages/Sign Up/SignUp";
 import ServiceDetail from "./Pages/ServiceDetail/ServiceDetail";
 import CheckOut from "./Pages/CheckOut/CheckOut/CheckOut";
 import RequireAuth from "./Pages/RequireAuth/RequireAuth";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import AddService from "./Pages/AddService/AddService";
+import ManageServices from "./Pages/ManageServices/ManageServices";
 
 function App() {
   return (
     <>
+      <ToastContainer />
       <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <Home />
-            </RequireAuth>
-          }
-        ></Route>
+        <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/features" element={<Features />}></Route>
         <Route path="/login" element={<Login />}></Route>
@@ -33,6 +31,22 @@ function App() {
           element={
             <RequireAuth>
               <CheckOut />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/addservice"
+          element={
+            <RequireAuth>
+              <AddService />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/manage_services"
+          element={
+            <RequireAuth>
+              <ManageServices />
             </RequireAuth>
           }
         ></Route>

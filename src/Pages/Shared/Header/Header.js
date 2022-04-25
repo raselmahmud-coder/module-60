@@ -10,12 +10,12 @@ const Header = () => {
   const [user] = useAuthState(auth);
 
   console.log("from header ", user);
-  
+
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth);
-    navigate('/login');
-  }
+    navigate("/login");
+  };
   return (
     <>
       <Navbar
@@ -55,9 +55,15 @@ const Header = () => {
                 About
               </Nav.Link>
               {user ? (
-                <Button onClick={handleSignOut}>
-                  Log Out
-                </Button>
+                <>
+                  <Nav.Link as={Link} to="/addservice">
+                    Add Service
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/manage_services">
+                    Manage Service
+                  </Nav.Link>
+                  <Button onClick={handleSignOut}>Log Out</Button>
+                </>
               ) : (
                 <Nav.Link as={Link} to="login">
                   Log in

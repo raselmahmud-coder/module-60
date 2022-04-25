@@ -1,5 +1,4 @@
 import React from "react";
-import PageTitle from "../../Shared/PageTitle/PageTitle";
 
 const Expert = ({ expert }) => {
   const { img, name } = expert;
