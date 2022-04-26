@@ -16,13 +16,10 @@ const RequireAuth = ({ children }) => {
   if (loading || sending) {
     return <Loading />;
   }
-  console.log(user);
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
   if (error || verifyError) {
-    console.log("error", error);
-    console.log("verify error", verifyError);
     // toast("error happened");
     toast.error("Error Notification !", {
       position: toast.POSITION.TOP_LEFT,

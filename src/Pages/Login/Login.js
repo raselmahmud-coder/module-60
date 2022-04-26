@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useRef } from "react";
 import { Button, Form, FormText } from "react-bootstrap";
 import {
@@ -26,18 +27,21 @@ const Login = () => {
   if (loading || PassSending) {
     return <Loading />;
   }
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    signInWithEmailAndPassword(email, password);
+    await signInWithEmailAndPassword(email, password);
+    const { data } = await axios.post(`http://localhost:5000/login`, { email });
+    localStorage.setItem("accessToken", data);
+    navigate(from, { replace: true })
   };
   if (user || LoginUser) {
     toast.success("Success Notification !", {
       position: toast.POSITION.TOP_CENTER,
-      toastId:"user_success"
+      toastId: "user_success",
     });
-    navigate(from, { replace: true });
+    // navigate(from, { replace: true });
   }
   let errorElement;
   if (error || passResetError) {

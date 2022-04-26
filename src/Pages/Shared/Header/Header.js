@@ -9,8 +9,6 @@ import { signOut } from "firebase/auth";
 const Header = () => {
   const [user] = useAuthState(auth);
 
-  console.log("from header ", user);
-
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth);
@@ -61,6 +59,9 @@ const Header = () => {
                   </Nav.Link>
                   <Nav.Link as={Link} to="/manage_services">
                     Manage Service
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/orders">
+                    Orders
                   </Nav.Link>
                   <Button onClick={handleSignOut}>Log Out</Button>
                 </>
