@@ -22,7 +22,7 @@ const CheckOut = () => {
       address: e.target.address.value,
       phone: e.target.phone.value,
     };
-    const response = await axios.post('http://localhost:5000/order', order);
+    const response = await axios.post('https://pacific-bayou-16022.herokuapp.com/order', order);
     const { data } = response;
     if (data.insertedId) {
       toast.success("Your order is booked!", {

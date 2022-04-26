@@ -14,7 +14,7 @@ const Orders = () => {
       const email = user?.email;
       try {
         const { data } = await axiosPrivate.get(
-          `http://localhost:5000/orders?email=${email}`
+          `https://pacific-bayou-16022.herokuapp.com/orders?email=${email}`
         );
         setOrders(data);
       } catch (error) {
